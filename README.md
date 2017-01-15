@@ -61,7 +61,7 @@ The solution is pretty simple, You can use [async/await](https://ponyfoo.com/art
 
 
 ## How About Vuex Saga?
-According to our cases above, we can simplify that code with [```Gernerator Function```](). It will make our async code looks like synchronous code. Take a look:
+According to our cases above, we can simplify that code with [```Generator Function```](). It will make our async code looks like synchronous code. Take a look:
 ```javascript
 import api from '../api'
 
