@@ -61,12 +61,10 @@ export default function sagaRun(genFunc, store = {}) {
 
         let runArrayIter = (data) => {
           let arrayIter = data
-          let doneCount = 0
           let allResponse = []
           for(let data of arrayIter) {
             runSingleIter(data, (res) => {
               allResponse.push(res)
-              doneCount++
               let isDone = allResponse.length === arrayIter.length
               if(isDone) return runNext(iter, allResponse)
             }, false)
