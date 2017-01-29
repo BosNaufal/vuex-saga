@@ -320,6 +320,7 @@ function *fetchFlow() {
 - [http://thejsguy.com/2016/10/15/a-practical-introduction-to-es6-generator-functions.html](http://thejsguy.com/2016/10/15/a-practical-introduction-to-es6-generator-functions.html)
 - [http://www.2ality.com/2015/03/no-promises.html](http://www.2ality.com/2015/03/no-promises.html)
 - [https://forum.vuejs.org/t/let-s-write-better-vuex-action-with-vuex-saga/5527/2](https://forum.vuejs.org/t/let-s-write-better-vuex-action-with-vuex-saga/5527/2)
+- [Let’s Write Better Vuex Action With Vuex Saga | Medium](https://medium.com/bosnaufal/lets-write-better-vuex-action-with-vuex-saga-956d69576957#.o1wzrunde)
 
 
 ## Thank You for Making this useful~
