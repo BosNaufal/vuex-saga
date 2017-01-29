@@ -14,6 +14,7 @@ export default function sagaRun(genFunc, store = {}) {
       let isDone = nextRun.done
 
       if(!isDone) {
+        if (!data) throw new Error('[Vuex Saga]: Please wrap the function next to yield statement inside the effects e.g. "call" or "put"')
         let isOrdinaryGenFunc  = data.func
         let isArrayGenFunc  = typeof(data) === 'object' && data.length !== 0
 
@@ -29,6 +30,11 @@ export default function sagaRun(genFunc, store = {}) {
             }
 
             if(data.method === "CALL") {
+              let notReturnAnything = func.apply(func, args) === undefined
+              if (notReturnAnything) {
+                if(single) return runNext(iter)
+                else return done ? done() : false
+              }
 
               let isPromise = func.apply(func, args).then !== undefined
 

@@ -1,6 +1,6 @@
 {
   "name": "vuex-saga",
-  "version": "0.0.1",
+  "version": "0.1.1",
   "description": "Better Vuex Action To Simplify Your Async Flow Process And Code Testing",
   "main": "./dist/vuex-saga.js",
   "scripts": {
@@ -38,42 +38,17 @@
   },
   "homepage": "https://github.com/BosNaufal/vuex-saga#readme",
   "devDependencies": {
-    "autoprefixer-loader": "^3.2.0",
     "babel-core": "^6.3.17",
-    "babel-helper-vue-jsx-merge-props": "^2.0.1",
     "babel-loader": "^6.2.0",
-    "babel-plugin-syntax-jsx": "^6.13.0",
     "babel-plugin-transform-object-rest-spread": "^6.8.0",
     "babel-plugin-transform-regenerator": "^6.21.0",
     "babel-plugin-transform-runtime": "^6.3.13",
-    "babel-plugin-transform-vue-jsx": "^3.1.0",
     "babel-polyfill": "^6.20.0",
     "babel-preset-es2015": "^6.3.13",
     "babel-runtime": "^5.8.34",
-    "chai": "^3.5.0",
-    "css-loader": "^0.25.0",
     "es6-promise": "^3.2.1",
-    "extract-text-webpack-plugin": "^1.0.1",
-    "karma": "^1.3.0",
-    "karma-babel-preprocessor": "^6.0.1",
-    "karma-cli": "^1.0.1",
-    "karma-mocha": "^1.3.0",
-    "karma-mocha-reporter": "^2.2.1",
-    "karma-webpack": "^1.8.0",
-    "mocha": "^3.2.0",
-    "style-loader": "^0.13.1",
-    "url-loader": "^0.5.7",
-    "vue-hot-reload-api": "",
-    "vue-html-loader": "",
-    "vue-loader": "",
-    "vue-style-loader": "",
-    "vue-template-compiler": "^2.1.7",
     "webpack": "^1.14.0",
-    "webpack-combine-loaders": "^2.0.0",
     "webpack-dev-server": "^1.14.0"
   },
-  "dependencies": {
-    "vue": "",
-    "vuex": "^2.1.1"
-  }
+  "dependencies": {}
 }

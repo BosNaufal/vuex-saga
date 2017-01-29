@@ -28,10 +28,17 @@ And Don't forget to add the plugin to your [```.babelrc```](./.babelrc)
 And Install it as a [Vue Plugin](https://vuejs.org/v2/guide/plugins.html#Using-a-Plugin) like this.
 ```javascript
 import Vue from 'vue';
+import Vuex from 'vuex';
 import VuexSaga from 'vuex-saga';
 
-// Install it
-Vue.use(VuexSaga)
+// Make A Vuex Store
+Vue.use(Vuex)
+const store = new Vuex.Store({
+  modules: { /* Some Modules */ }
+})
+
+// Install it by pass your store to be an option argument (Since v0.1.0)
+Vue.use(VuexSaga, { store: store })
 ```
 
 
@@ -41,15 +48,21 @@ Probably you don't need it. But in some cases you'll find a busy async process t
 ```javascript
 import api from '../api'
 
+// Variable for saving the responses
+let product, seller, statistic;
+
 api.fetchProduct()
-.then((product) => {
+.then((res) => {
+  product = res
   return api.fetchSeller(product.id)
-  .then((seller) => {
-    return api.statistic(product, seller)
-    .then((statistic) => {
-      return api.needStatisticProductAndSeller(statstic, product, seller)
-    })
-  })
+})
+.then((res) => {
+  seller = res
+  return api.statistic(product, seller)
+})
+.then((res) => {
+  statistic = res
+  return api.needStatisticProductAndSeller(statstic, product, seller)
 })
 .then((res) => {
   // Once your code bigger
@@ -57,7 +70,22 @@ api.fetchProduct()
 })
 ```
 
-The solution is pretty simple, You can use [async/await](https://ponyfoo.com/articles/understanding-javascript-async-await) but I just heard that it will ready very soon. So, we can't use it natively for now. And another point that you should notice is "How can you test it Effortlessly?".
+The solution is pretty simple, You can use [async/await](https://ponyfoo.com/articles/understanding-javascript-async-await)
+
+```javascript
+// source: https://forum.vuejs.org/t/let-s-write-better-vuex-action-with-vuex-saga/5527/2
+
+import api from '../api'
+
+async function do () {
+  const product = await api.fetchProduct()
+  const seller = await api.fetchSeller(product.id)
+  const statistic = await api.statistic(product, seller)
+  const res = await api.needStatisticProductAndSeller(statistic , product, seller)
+  // ...
+}
+```
+You could use aync/await which are compatible with Promises. You can easily do that with Babel or natively in Chrome and Opera. Firefox and Edge support is coming in their next versions (FX 52, Edge 15). But another point that you should notice is **"How can you test it Effortlessly?"**.
 
 
 ## How About Vuex Saga?
@@ -291,6 +319,7 @@ function *fetchFlow() {
 - [https://davidwalsh.name/es6-generators](https://davidwalsh.name/es6-generators)
 - [http://thejsguy.com/2016/10/15/a-practical-introduction-to-es6-generator-functions.html](http://thejsguy.com/2016/10/15/a-practical-introduction-to-es6-generator-functions.html)
 - [http://www.2ality.com/2015/03/no-promises.html](http://www.2ality.com/2015/03/no-promises.html)
+- [https://forum.vuejs.org/t/let-s-write-better-vuex-action-with-vuex-saga/5527/2](https://forum.vuejs.org/t/let-s-write-better-vuex-action-with-vuex-saga/5527/2)
 
 
 ## Thank You for Making this useful~
@@ -305,4 +334,4 @@ Just Contact Me At:
 
 ## License
 [MIT](http://opensource.org/licenses/MIT)
-Copyright (c) 2016 - forever Naufal Rabbani
+Copyright (c) Naufal Rabbani

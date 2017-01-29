@@ -18,11 +18,6 @@ module.exports = {
     library: "VuexSaga"
   },
 
-  externals: {
-    "vue": "Vue"
-  },
-
-
   module: {
 
     loaders: [
@@ -38,7 +33,7 @@ module.exports = {
 
     new webpack.BannerPlugin((
       [
-        "Copyright (c) 2016 Naufal Rabbani (http://github.com/BosNaufal)",
+        "Copyright (c) Naufal Rabbani (http://github.com/BosNaufal)",
         "\n",
         "Licensed Under MIT (http://opensource.org/licenses/MIT)",
         "\n",

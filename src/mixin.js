@@ -3,18 +3,15 @@ import sagaRun from './sagaRun.js'
 
 let VuexSaga = {}
 VuexSaga.install = function (Vue, options) {
+  if (!options) throw new Error("[Vuex Saga]: Should pass the store in the plugin installation options")
+  const { store } = options
+
   Vue.mixin({
     beforeCreate: function () {
-      const { $store } = this
-      const store = {
-        state: $store.state,
-        dispatch: $store.dispatch,
-        commit: $store.commit,
-      }
-
       this.$run = (action, payload) => {
         return store.dispatch(action,payload)
         .then((generator) => {
+          if (!generator) throw new Error("[Vuex Saga]: You're running ordinary action. Use Vuex mapActions instead of Vuex Saga mapSagas")
           return sagaRun(generator, store)
         })
       }
