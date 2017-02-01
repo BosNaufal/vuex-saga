@@ -62,12 +62,31 @@ api.fetchProduct()
 })
 .then((res) => {
   statistic = res
-  return api.needStatisticProductAndSeller(statstic, product, seller)
+  return api.needStatisticProductAndSeller(statistic, product, seller)
 })
-.then((res) => {
-  // Once your code bigger
-  // you'll lost your path...
-})
+```
+
+Or you can skip the ```let``` declaration
+
+```javascript
+// source: https://codepen.io/aurelien-bottazini/pen/VPQLBp?editors=0011
+
+const api = {
+  fetchProduct() { return Promise.resolve({ id: 'productId'}) },
+  fetchSeller(id) { return Promise.resolve('seller') },
+  statistic(product, seller) { return  Promise.resolve('stats') },
+  needStatisticProductAndSeller(statistic, product, seller) {
+    return Promise.resolve('finalResult')
+  },
+};
+
+api.fetchProduct()
+.then((product) => api.fetchSeller(product.id)
+      .then((seller) => ({ product, seller })))
+.then(({ product, seller }) => api.statistic(product, seller)
+      .then((statistic) => ({ product, seller, statistic })))
+.then(({ product, seller, statistic }) =>  api.needStatisticProductAndSeller(statistic, product, seller))
+.then(console.log);
 ```
 
 The solution is pretty simple, You can use [async/await](https://ponyfoo.com/articles/understanding-javascript-async-await)
@@ -85,7 +104,7 @@ async function do () {
   // ...
 }
 ```
-You could use aync/await which are compatible with Promises. You can easily do that with Babel or natively in Chrome and Opera. Firefox and Edge support is coming in their next versions (FX 52, Edge 15). But another point that you should notice is **"How can you test it Effortlessly?"**.
+You could use aync/await which are compatible with Promises. You can easily do that with Babel or natively in Chrome and Opera. Firefox and Edge support is coming in their next versions (FX 52, Edge 15). But another point that you should notice is **"How can you test it Effortlessly?"**. For now, I have no idea to test async/await function.
 
 
 ## How About Vuex Saga?
