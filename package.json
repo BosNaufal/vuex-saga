@@ -1,6 +1,6 @@
 {
   "name": "vuex-saga",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Better Vuex Action To Simplify Your Async Flow Process And Code Testing",
   "main": "./dist/vuex-saga.js",
   "scripts": {
