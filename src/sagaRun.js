@@ -30,17 +30,11 @@ export default function sagaRun(genFunc, store = {}) {
             }
 
             if(data.method === "CALL") {
-              let notReturnAnything = func.apply(func, args) === undefined
-              if (notReturnAnything) {
-                if(single) return runNext(iter)
-                else return done ? done() : false
-              }
-
-              let isPromise = func.apply(func, args).then !== undefined
+              const functionApplied = func.apply(func, args)
+              let isPromise = functionApplied.then !== undefined
 
               if(isPromise) {
-                return func.apply(func, args)
-                .then((res) => {
+                return functionApplied.then((res) => {
                   if(single) return runNext(iter, res)
                   return done ? done(res) : false
                 })

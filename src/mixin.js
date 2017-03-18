@@ -9,7 +9,7 @@ VuexSaga.install = function (Vue, options) {
   Vue.mixin({
     beforeCreate: function () {
       this.$run = (action, payload) => {
-        return store.dispatch(action,payload)
+        return store.dispatch(action, payload)
         .then((generator) => {
           if (!generator) throw new Error("[Vuex Saga]: You're running ordinary action. Use Vuex mapActions instead of Vuex Saga mapSagas")
           return sagaRun(generator, store)
