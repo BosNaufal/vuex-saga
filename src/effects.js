@@ -30,6 +30,16 @@ export function delay(time) {
   })
 }
 
+function GetterFunction(selector, ...rest) {
+  if (typeof this.getters[selector] === 'function') {
+    return this.getters[selector].apply(this, rest)
+  }
+  return this.getters[selector]
+}
+
+export function select(selector, ...rest) {
+  return wrapIt("SELECT", GetterFunction, [selector, ...rest])
+}
 
 function FakeFunction () {}
 
