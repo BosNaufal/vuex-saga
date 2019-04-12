@@ -38,16 +38,18 @@ export function delay(time) {
 }
 
 function GetterFunction(selector, ...rest) {
-  if (typeof this.getters[selector] === 'function') {
+  if (this.getters && typeof this.getters[selector] === 'function') {
     return this.getters[selector].apply(this, rest)
-  } else if (typeof this.rootGetters[selector] === 'function') {
+  } else if (this.rootGetters && typeof this.rootGetters[selector] === 'function') {
     return this.rootGetters[selector].apply(this, rest)
-  } else if (typeof this.getters[selector] === 'undefined') {
-    const stateValue = getValueByPath(this.state, selector)
-    const rootStateValue = getValueByPath(this.rootState, selector)
-    return typeof stateValue === 'undefined' ? rootStateValue : stateValue
+  } else if (this.getters && typeof this.getters[selector] !== 'undefined') {
+    return this.getters[selector]
+  } else if (this.rootGetters && typeof this.rootGetters[selector] !== 'undefined') {
+    return this.rootGetters[selector]
   }
-  return typeof this.getters[selector] === 'undefined' ? this.rootGetters[selector] : this.getters[selector]
+  const stateValue = getValueByPath(this.state, selector)
+  const rootStateValue = getValueByPath(this.rootState, selector)
+  return typeof stateValue === 'undefined' ? rootStateValue : stateValue
 }
 
 export function select(selector, ...rest) {
