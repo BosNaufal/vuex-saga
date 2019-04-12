@@ -1,3 +1,10 @@
+function getValueByPath(obj, path) {
+  try {
+    return path.split('.').reduce((o, key) => o && o[key] ? o[key] : undefined, obj)
+  } catch (e) {
+    return
+  }
+}
 
 function destructuring(args) {
   let func = args[0]
@@ -30,6 +37,24 @@ export function delay(time) {
   })
 }
 
+function GetterFunction(selector, ...rest) {
+  if (this.getters && typeof this.getters[selector] === 'function') {
+    return this.getters[selector].apply(this, rest)
+  } else if (this.rootGetters && typeof this.rootGetters[selector] === 'function') {
+    return this.rootGetters[selector].apply(this, rest)
+  } else if (this.getters && typeof this.getters[selector] !== 'undefined') {
+    return this.getters[selector]
+  } else if (this.rootGetters && typeof this.rootGetters[selector] !== 'undefined') {
+    return this.rootGetters[selector]
+  }
+  const stateValue = getValueByPath(this.state, selector)
+  const rootStateValue = getValueByPath(this.rootState, selector)
+  return typeof stateValue === 'undefined' ? rootStateValue : stateValue
+}
+
+export function select(selector, ...rest) {
+  return wrapIt("SELECT", GetterFunction, [selector, ...rest])
+}
 
 function FakeFunction () {}
 

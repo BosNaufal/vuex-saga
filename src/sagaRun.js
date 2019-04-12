@@ -29,6 +29,12 @@ export default function sagaRun(genFunc, store = {}) {
               return done ? done() : false
             }
 
+            if (data.method === "SELECT") {
+              const res = data.func.apply(store, data.args)
+              if(single) return runNext(iter, res)
+              return done ? done(res) : false
+            }
+
             if(data.method === "CALL") {
               const functionApplied = func.apply(func, args)
               let isPromise = functionApplied.then !== undefined
