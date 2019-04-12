@@ -1,3 +1,10 @@
+function getValueByPath(obj, path) {
+  try {
+    return path.split('.').reduce((o, key) => o && o[key] ? o[key] : undefined, obj)
+  } catch (e) {
+    return
+  }
+}
 
 function destructuring(args) {
   let func = args[0]
@@ -33,6 +40,12 @@ export function delay(time) {
 function GetterFunction(selector, ...rest) {
   if (typeof this.getters[selector] === 'function') {
     return this.getters[selector].apply(this, rest)
+  } else if (typeof this.rootGetters[selector] === 'function') {
+    return this.rootGetters[selector].apply(this, rest)
+  } else if (typeof this.getters[selector] === 'undefined') {
+    const stateValue = getValueByPath(this.state, selector)
+    const rootStateValue = getValueByPath(this.rootState, selector)
+    return typeof stateValue === 'undefined' ? rootStateValue : stateValue
   }
   return this.getters[selector]
 }
