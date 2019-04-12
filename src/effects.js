@@ -47,7 +47,7 @@ function GetterFunction(selector, ...rest) {
     const rootStateValue = getValueByPath(this.rootState, selector)
     return typeof stateValue === 'undefined' ? rootStateValue : stateValue
   }
-  return this.getters[selector]
+  return typeof this.getters[selector] === 'undefined' ? this.rootGetters[selector] : this.getters[selector]
 }
 
 export function select(selector, ...rest) {
